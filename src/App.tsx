@@ -7,6 +7,8 @@ import {
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
 
+
+
 const longDescriptionProject = [
   {
     id: 1, 
@@ -373,8 +375,10 @@ function App() {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]); 
   const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  const API_KEY_EMAIL_JS = import.meta.env.VITE_API_KEY_EMAIL_JS
+
   useEffect(() => {
-    emailjs.init("Dddt73gRFyDUgGt5_"); // Replace with your EmailJS public key
+    emailjs.init(API_KEY_EMAIL_JS); // Replace with your EmailJS public key
   }, []);
 
 
