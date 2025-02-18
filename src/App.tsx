@@ -2,12 +2,22 @@ import { useState, useEffect, useRef } from 'react';
 import { 
   Github, Linkedin, Moon, Sun, Cloud, GitBranch, 
   ChevronLeft, ChevronRight, X, GraduationCap, Award, BookOpen, 
-  Clock, Calendar, Building2, ExternalLink , Server, Code, Database
+  Clock, Calendar, Building2, Server, Gitlab, Users,
+  Shield, BarChart,
+  Database
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
+import { motion } from 'framer-motion';
 
 
+interface Experience {
+  title: string;
+  company: string;
+  period: string;
+  description: string;
+  technologies: string[];
+}
 
 const longDescriptionProject = [
   {
@@ -149,6 +159,51 @@ const longDescriptionProject = [
   }
 ]
 
+const skillCategories = [
+  {
+    title: "Infrastructure & Cloud",
+    icon: <Cloud className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "Kubernetes",
+      "Docker",
+      "Terraform, Ansible",
+      "OpenStack, linode vps"
+    ]
+  },
+  {
+    title: "CI/CD & Automatisation",
+    icon: <Gitlab className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "GitLab CI/CD (déploiements automatisés)",
+      "FluxCD (GitOps)",
+    ]
+  },
+  {
+    title: "Sécurité & Réseau",
+    icon: <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "OpenVPN",
+      "TLS (Certificats Let's Encrypt avec Traefik)",
+      "Gestion des permissions Kubernetes (RBAC, NetworkPolicy)"
+    ]
+  },
+  {
+    title: "Monitoring & Logs",
+    icon: <BarChart className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "Grafana",
+      "Victoria metrics",
+      "Loki",
+    ]
+  },
+  {
+    title: "Backend",
+    icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "Spring framework"
+    ]
+  }
+];
 
 // Project data
 const projects = [
@@ -237,13 +292,15 @@ const education = [
     icon: <GraduationCap className="w-6 h-6" />,
     description: "Spécialisé en Génie Logiciel et Systèmes Distribués"
   },
+];
+
+const experienceData: Experience[] = [
   {
-    type: "training",
-    title: "A Practical Guide to Kubernetes",
-    institution: "Educative.io",
-    period: "2024",
-    icon: <BookOpen className="w-6 h-6" />,
-    description: "Gain insights into Kubernetes fundamentals, explore cluster components, and learn to build, test, deploy, and secure applications, achieving state persistence and mastering crucial DevOps skills"
+    title: "Conception et réalisation d'une application gestion des recensements (stage)",
+    company: 'Ministère de la Jeunesse et Sport, Madagascar',
+    period: 'Août 2023 - Novembre 2023',
+    description: "Développement d'une application web full-stack pour la gestion de recensement, utilisant Spring Boot pour le backend et React pour le frontend, dans le cadre d'un stage en entreprise.",
+    technologies: ['Spring boot', 'Spring security', 'React', 'Mysql', "Git", "2TUP"],
   }
 ];
 
@@ -372,8 +429,9 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef(); 
+  //Education ref
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]); 
-  const skillRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const experienceRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const API_KEY_EMAIL_JS = import.meta.env.VITE_API_KEY_EMAIL_JS
 
@@ -423,22 +481,7 @@ function App() {
       if (ref) observer.observe(ref);
     });
 
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    skillRefs.current.forEach((ref) => {
+    experienceRefs.current.forEach((ref) => {
       if (ref) observer.observe(ref);
     });
 
@@ -489,8 +532,8 @@ function App() {
               <div className="flex items-center space-x-8">
                 <a href="#about" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">À propos</a>
                 <a href="#projects" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Projets</a>
-                <a href="#education" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Éducation</a>
                 <a href="#skills" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Compétences</a>
+                <a href="#education" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Éducation</a>
                 <a href="#contact" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Contact</a>
                 <button
                   onClick={toggleDarkMode}
@@ -528,7 +571,7 @@ function App() {
               <div className="md:w-1/2">
                 <div className="relative w-64 h-64 mx-auto">
                   <img
-                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    src="public/profil.jpg"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
                   />
@@ -598,130 +641,161 @@ function App() {
         {/* Skills Section */}
         <section id="skills" className="py-20 bg-white dark:bg-gray-900">
           <div className="container mx-auto">
-            <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Compétences</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {[
-                  {
-                    icon: <Server className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" />,
-                    title: 'Infrastructure',
-                    description: 'Docker, Kubernetes, Terraform',
-                  },
-                  {
-                    icon: <Cloud className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" />,
-                    title: 'Cloud',
-                    description: 'Linode, Cloud public Infomaniak',
-                  },
-                  {
-                    icon: <Code className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" />,
-                    title: 'Automation',
-                    description: 'GitLab CI, Ansible',
-                  },
-                  {
-                    icon: <GitBranch className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" />,
-                    title: 'Version Control',
-                    description: 'Git, GitFlow',
-                  },
-                  {
-                    icon: <Database className="w-8 h-8 mb-4 text-blue-600 dark:text-blue-400" />,
-                    title: 'Backend',
-                    description: 'Spring framework',
-                  },
-                ].map((skill, index) => (
-                    <div
-                      key={index}
-                      ref={(el) => (skillRefs.current[index] = el)}
-                      className="text-center p-6 bg-gray-50 dark:bg-gray-800 rounded-lg opacity-0 translate-y-4 transition-all duration-700 hover:transform hover:-translate-y-1 hover:shadow-lg"
-                      style={{ animationDelay: `${index * 100}ms` }}
+            <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">
+              Compétences
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {skillCategories.map((category, index) => (
+                <motion.div
+                  key={category.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className=" bg-gray-50 dark:bg-gray-800 rounded-lg opacity-0 p-6"
                 >
-                <div className="flex justify-center animate-rotate-in">
-                  {skill.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
-                  {skill.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {skill.description}
-                </p>
-              </div>
+                  <div className="flex items-center gap-3 mb-4">
+                    {category.icon}
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                      {category.title}
+                    </h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {category.skills.map((skill) => (
+                      <li 
+                        key={skill}
+                        className="text-gray-600 dark:text-gray-300"
+                      >
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
         {/* Education Section */}
-    <section id="education" className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-center mb-16">
-          <GraduationCap className="w-8 h-8 text-blue-600 dark:text-blue-400 mr-3" />
-          <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
-            Formation & Certifications
-          </h2>
-        </div>
+        <section id="education" className="py-20 bg-gray-50 dark:bg-gray-800">
+          <div className="container mx-auto px-6">
+          <div className="flex items-center justify-center mb-16">
+              <GraduationCap className="w-8 h-8 text-blue-600 dark:text-blue-400 mr-3" />
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
+                Formation & Expérience
+              </h2>
+            </div>
+            <div className='grid grid-cols-2 gap-8'>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
+             {/* Formation & Certifications */}
+              <div className="relative">
+                {/* Timeline line */}
+                <div className="absolute left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
 
-          <div className="space-y-12">
-            {education.map((item, index) => (
-              <div
-                key={index}
-                ref={(el) => (itemRefs.current[index] = el)}
-                className="relative pl-20 opacity-0 translate-x-8 transition-all duration-700"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                {/* Timeline dot and icon */}
-                <div className="absolute left-6 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full" />
-                  <div className="absolute -left-8 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
-                    {getIcon(item.type)}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="relative">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-                      {item.title}
-                    </h3>
-                    {item.link && (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                    )}
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center text-gray-600 dark:text-gray-300">
-                      <Building2 className="w-4 h-4 mr-2" />
-                      {item.institution}
-                    </div>
-                    <div className="flex items-center text-gray-600 dark:text-gray-300">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      {item.period}
-                    </div>
-                    {item.duration && (
-                      <div className="flex items-center text-gray-600 dark:text-gray-300">
-                        <Clock className="w-4 h-4 mr-2" />
-                        {item.duration}
+                <div className="space-y-12">
+                  {education.map((item, index) => (
+                    <div
+                      key={index}
+                      ref={(el) => (itemRefs.current[index] = el)}
+                      className="relative pl-20 opacity-0 translate-x-8 transition-all duration-700"
+                      style={{ animationDelay: `${index * 200}ms` }}
+                    >
+                      {/* Timeline dot and icon */}
+                      <div className="absolute left-6 transform -translate-x-1/2 flex items-center justify-center">
+                        <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                        <div className="absolute -left-8 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
+                          {getIcon(item.type)}
+                        </div>
                       </div>
-                    )}
-                    <p className="text-gray-600 dark:text-gray-300 mt-2">
-                      {item.description}
-                    </p>
-                  </div>
+
+                      {/* Content */}
+                      <div className="relative">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+                            {item.title}
+                          </h3>
+                        </div>
+
+                        <div className="space-y-2">
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
+                            <Building2 className="w-4 h-4 mr-2" />
+                            {item.institution}
+                          </div>
+                          <div className="flex items-center text-gray-600 dark:text-gray-300">
+                            <Calendar className="w-4 h-4 mr-2" />
+                            {item.period}
+                          </div>
+                          <p className="text-gray-600 dark:text-gray-300 mt-2">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
+                
               </div>
-            ))}
+
+              {/* Expérience Professionnelle */}
+              <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
+
+              <div className="space-y-12">
+                {experienceData.map((item, index) => (
+                  <div
+                    key={index}
+                    ref={(el) => (experienceRefs.current[index] = el)}
+                    className="relative pl-20 opacity-0 translate-x-8 transition-all duration-700"
+                    style={{ animationDelay: `${index * 200}ms` }}
+                  >
+                    {/* Timeline dot and icon */}
+                    <div className="absolute left-6 transform -translate-x-1/2 flex items-center justify-center">
+                      <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                      <div className="absolute -left-8 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
+                        <Users className="w-6 h-6" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative">
+                      <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                        {item.title}
+                      </h3>
+
+                      <div className="space-y-2">
+                        <div className="flex items-center text-gray-600 dark:text-gray-300">
+                          <Building2 className="w-4 h-4 mr-2" />
+                          {item.company}
+                        </div>
+                        <div className="flex items-center text-gray-600 dark:text-gray-300">
+                          <Calendar className="w-4 h-4 mr-2" />
+                          {item.period}
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {item.description}
+                        </p>
+
+                        {/* Technologies */}
+                        <div className="flex flex-wrap gap-2 mt-3">
+                          {item.technologies.map((tech, techIndex) => (
+                            <span
+                              key={techIndex}
+                              className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full text-sm"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
 
         {/* Contact Section */}
