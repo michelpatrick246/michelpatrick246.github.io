@@ -571,7 +571,7 @@ function App() {
               <div className="md:w-1/2">
                 <div className="relative w-64 h-64 mx-auto">
                   <img
-                    src="public/profil.jpg"
+                    src="./profil.jpg"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
                   />
