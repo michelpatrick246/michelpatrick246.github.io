@@ -4,7 +4,7 @@ import {
   ChevronLeft, ChevronRight, X, GraduationCap, Award, BookOpen, 
   Clock, Calendar, Building2, Server, Gitlab, Users,
   Shield, BarChart,
-  Database
+  Database, Mail
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
@@ -571,7 +571,7 @@ function App() {
               <div className="md:w-1/2">
                 <div className="relative w-64 h-64 mx-auto">
                   <img
-                    src=""
+                    src="profil.jpg"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
                   />
@@ -601,6 +601,12 @@ function App() {
                     className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
                   >
                     <Linkedin className="w-6 h-6" />
+                  </a>
+                  <a
+                    href="mailto:michelpatrick246@gmail.com"
+                    className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  >
+                    <Mail className="w-6 h-6" />
                   </a>
                 </div>
               </div>
@@ -799,7 +805,7 @@ function App() {
 
 
         {/* Contact Section */}
-        <section id="contact" className="py-20 px-6">
+        <section id="contact" className="py-20 px-6 bg-white dark:bg-gray-900">
           <div className="container mx-auto max-w-2xl">
             <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Contact</h2>
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
@@ -847,7 +853,7 @@ function App() {
         </section>
 
         {/* Footer */}
-        <footer className="bg-white dark:bg-gray-800 py-8 px-6">
+        <footer className="bg-gray-50 dark:bg-gray-800 py-8 px-6">
           <div className="container mx-auto text-center">
             <div className="flex justify-center space-x-6 mb-6">
               <a
@@ -865,6 +871,12 @@ function App() {
                 className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
               >
                 <Linkedin className="w-6 h-6" />
+              </a>
+              <a
+                href="mailto:michelpatrick246@gmail.com"
+                className="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                <Mail className="w-6 h-6 mr-3" />
               </a>
             </div>
             <p className="text-gray-600 dark:text-gray-300">
