@@ -4,7 +4,8 @@ import {
   ChevronLeft, ChevronRight, X, GraduationCap, Award, BookOpen, 
   Clock, Calendar, Building2, Server, Gitlab, Users,
   Shield, BarChart,
-  Database, Mail
+  Database, Mail,
+  Play
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
@@ -218,7 +219,8 @@ const projects = [
       "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1667372393749-0af6ae3d5aee?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1667372394195-f5e8f2aa3fae?auto=format&fit=crop&w=1200&q=80"
-    ]
+    ],
+     demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
   },
   {
     id: 2,
@@ -231,7 +233,8 @@ const projects = [
       "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1618401471578-39cd9c0e41c5?auto=format&fit=crop&w=1200&q=80",
       "https://images.unsplash.com/photo-1618401471668-9e86f7e8a85a?auto=format&fit=crop&w=1200&q=80"
-    ]
+    ],
+     demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
   },
   {
     id: 3,
@@ -241,10 +244,18 @@ const projects = [
     tech: ["Infomaniak", "Ansible", "Terraform", "Kubernetes", "Grafana", "vmetrics", "Loki", "OpenVPN", "Traefik", "Consul", "Restic"],
     longDescription: longDescriptionProject[2],
     images: [
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1516116412344-4d8cbf3ad538?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80"
-    ]
+      "infra_cloud/topologie reseaux.png",
+      "infra_cloud/consul service.png",
+      "infra_cloud/config consul.png",
+      "infra_cloud/dashboard traefik.png",
+      "infra_cloud/task installation consul.png",
+      "infra_cloud/metric consul1 grafana.png",
+      "infra_cloud/log system consul2.png",
+      "infra_cloud/Création instance terraform.png",
+      "infra_cloud/alert manager.png",
+      "infra_cloud/config alert node_exporter.png"
+    ],
+     demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
   },
   {
     id: 4,
@@ -288,7 +299,7 @@ const education = [
     type: "diploma",
     title: "Master en informatique",
     institution: "ENI Fianarantsoa, Madagascar",
-    period: "2023-2025",
+    period: "2023-present",
     icon: <GraduationCap className="w-6 h-6" />,
     description: "Spécialisé en Génie Logiciel et Systèmes Distribués"
   },
@@ -304,8 +315,42 @@ const experienceData: Experience[] = [
   }
 ];
 
+function FullscreenImage({ src, onClose }) {
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [onClose]);
+
+  return (
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-90 z-[60] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white hover:text-gray-300"
+      >
+        <X className="w-8 h-8" />
+      </button>
+      <img
+        src={src}
+        alt="Fullscreen view"
+        className="max-w-full max-h-[90vh] object-contain"
+        onClick={(e) => e.stopPropagation()}
+      />
+    </div>
+  );
+}
+
 function ProjectModal({ project, onClose }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [fullscreenImage, setFullscreenImage] = useState(null);
+  const [showDemo, setShowDemo] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -325,41 +370,62 @@ function ProjectModal({ project, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex flex-col md:flex-row h-full">
           <div className="md:w-1/2 relative">
             <div className="sticky top-0 p-6">
-              <img
-                src={project.images[currentImageIndex]}
-                alt={`${project.title} - Image ${currentImageIndex + 1}`}
-                className="w-full h-full object-cover"
-              />
-              
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-75"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-75"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-              
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                {project.images.map((_, index) => (
+            {showDemo ? (
+                <img
+                  src={project.demoGif}
+                  alt="Demo"
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <img
+                  src={project.images[currentImageIndex]}
+                  alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                  className="w-full h-full object-cover cursor-pointer"
+                  onClick={() => setFullscreenImage(project.images[currentImageIndex])}
+                />
+              )}
+
+              {!showDemo && (
+                <>
                   <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`w-2 h-2 rounded-full ${
-                      index === currentImageIndex ? 'bg-white' : 'bg-white/50'
-                    }`}
-                  />
-                ))}
-              </div>
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-75"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 p-2 rounded-full text-white hover:bg-opacity-75"
+                  >
+                    <ChevronRight className="w-6 h-6" />
+                  </button>
+                  
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {project.images.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentImageIndex(index)}
+                        className={`w-2 h-2 rounded-full ${
+                          index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+              
+              <button
+                onClick={() => setShowDemo(!showDemo)}
+                className="absolute bottom-10 right-10 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center gap-2 transition-colors duration-300"
+              >
+                <Play className="w-4 h-4" />
+                {showDemo ? 'Voir les images' : 'Démo Live'}
+              </button>
             </div>
           </div>
           
@@ -397,6 +463,12 @@ function ProjectModal({ project, onClose }) {
           </div>
         </div>
       </div>
+      {fullscreenImage && (
+        <FullscreenImage
+          src={fullscreenImage}
+          onClose={() => setFullscreenImage(null)}
+        />
+      )}
     </div>
   );
 }
@@ -530,6 +602,7 @@ function App() {
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">Michel Patrick</div>
               <div className="flex items-center space-x-8">
+                <a href="#accueil" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Accueil</a>
                 <a href="#about" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">À propos</a>
                 <a href="#projects" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Projets</a>
                 <a href="#skills" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Compétences</a>
@@ -547,7 +620,7 @@ function App() {
         </header>
 
         {/* Hero Section */}
-        <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
+        <section id="accueil" className="pt-32 pb-20 px-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
           <div className="container mx-auto text-center">
             <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">
             Junior DevOps passionné par l'automatisation et le cloud
