@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { 
   Github, Linkedin, Moon, Sun, Cloud, GitBranch, 
-  ChevronLeft, ChevronRight, X, GraduationCap, Award, BookOpen, 
+  ChevronLeft, ChevronRight, X, GraduationCap, Award, 
   Clock, Calendar, Building2, Server, Gitlab, Users,
   Shield, BarChart,
   Database, Mail,
@@ -602,8 +602,7 @@ function App() {
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">Michel Patrick</div>
               <div className="flex items-center space-x-8">
-                <a href="#accueil" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Accueil</a>
-                <a href="#about" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">À propos</a>
+                <a href="#about" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Accueil</a>
                 <a href="#projects" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Projets</a>
                 <a href="#skills" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Compétences</a>
                 <a href="#education" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Éducation</a>
@@ -619,45 +618,42 @@ function App() {
           </nav>
         </header>
 
-        {/* Hero Section */}
-        <section id="accueil" className="pt-32 pb-20 px-6 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
-          <div className="container mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">
-            Junior DevOps passionné par l'automatisation et le cloud
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Spécialisé dans l'automatisation et le déploiement d'infrastructures cloud
-            </p>
-            <a
-              href="#projects"
-              className="bg-blue-600 text-white px-8 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300"
-            >
-              Découvrez mes projets
-            </a>
-          </div>
-        </section>
-
         {/* About Section */}
         <section id="about" className="py-20 px-6">
           <div className="container mx-auto">
             <div className="flex flex-col md:flex-row items-center gap-12">
-              <div className="md:w-1/2">
-                <div className="relative w-64 h-64 mx-auto">
-                  <img
-                    src="profil.jpg"
-                    alt="Profile"
-                    className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
-                  />
-                  <div className="absolute inset-0 rounded-full border-4 border-blue-300 opacity-75 animate-pulse"></div>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.5 }}  
+                className="md:w-1/2"
+                >
+                <div className="inline-block mt-4">
+                  <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">
+                  🚀 DevOps Engineer
+                  </span>
                 </div>
-              </div>
-              <div className="md:w-1/2">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">À propos de moi</h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                Je m'appelle TOVONJANAHARY Michel Patrick, passionné par l'automatisation et les infrastructures cloud. 
-                Ayant une bonne maîtrise des outils d'automatisation et une expérience pratique dans le déploiement d'applications sur le cloud, 
-                je suis motivé à renforcer mes compétences et à contribuer à des projets innovants.
+
+                <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight">
+                  Je suis <br />
+                  TOVONJANAHARY Michel Patrick
+                </h1>
+                <p className="text-gray-600 dark:text-gray-400 max-w-xl mt-4 mb-6 leading-relaxed">
+                  Passionné par la construction d’infrastructures et le déploiement d’applications, j’ai commencé par le développement web avant de découvrir la philosophie DevOps. Depuis, je me forme activement à l'automatisation et à l’optimisation des déploiements. Je suis à la recherche d’une opportunité pour mettre en pratique mes compétences et continuer à apprendre au sein d’une équipe dynamique.
                 </p>
+                
+                {/* <h2
+                  className="text-3xl font-bold mb-6 text-gray-900 dark:text-white"
+                  >
+                  À propos de moi
+                </h2>
+                <p
+                  className="text-gray-600 dark:text-gray-300 mb-6"
+                >
+                  Je m'appelle TOVONJANAHARY Michel Patrick, passionné par l'automatisation et les infrastructures cloud. 
+                  Ayant une bonne maîtrise des outils d'automatisation et une expérience pratique dans le déploiement d'applications sur le cloud, 
+                  je suis motivé à renforcer mes compétences et à contribuer à des projets innovants.
+                </p> */}
                 <div className="flex space-x-4">
                   <a
                     href="https://github.com/michelpatrick246"
@@ -682,6 +678,23 @@ function App() {
                     <Mail className="w-6 h-6" />
                   </a>
                 </div>
+              </motion.div>
+              <div className="md:w-1/2">
+                <motion.div 
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.5, delay: 1 }}
+                  className="relative w-72 h-72 mx-auto"
+                >
+                  <motion.img
+                    src="profil.jpg"
+                    alt="Profile"
+                    className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                  />
+                  
+                </motion.div>
               </div>
             </div>
           </div>
@@ -693,25 +706,28 @@ function App() {
             <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Mes Projets</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:transform hover:scale-105 transition-transform duration-300 cursor-pointer"
-                  onClick={() => setSelectedProject(project)}
-                >
-                  <div className="text-blue-600 dark:text-blue-400 mb-4">{project.icon}</div>
-                  <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                <motion.div
+                key={project.title}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.7, delay: index * 0.1 }}
+                onClick={() => setSelectedProject(project)}
+                className=" bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:transform hover:scale-105 cursor-pointer"
+              >
+                <div className="text-blue-600 dark:text-blue-400 mb-4">{project.icon}</div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{project.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
                 </div>
+            </motion.div>
               ))}
             </div>
           </div>
@@ -723,7 +739,7 @@ function App() {
             <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">
               Compétences
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {skillCategories.map((category, index) => (
                 <motion.div
                   key={category.title}
@@ -826,7 +842,7 @@ function App() {
                     key={index}
                     ref={(el) => (experienceRefs.current[index] = el)}
                     className="relative pl-20 opacity-0 translate-x-8 transition-all duration-700"
-                    style={{ animationDelay: `${index * 200}ms` }}
+                    style={{ animationDelay: `${index * 500}ms` }}
                   >
                     {/* Timeline dot and icon */}
                     <div className="absolute left-6 transform -translate-x-1/2 flex items-center justify-center">
