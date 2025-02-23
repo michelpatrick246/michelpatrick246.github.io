@@ -5,7 +5,7 @@ import {
   Clock, Calendar, Building2, Server, Gitlab, Users,
   Shield, BarChart,
   Database, Mail,
-  Play
+  Play, Menu
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
@@ -203,7 +203,15 @@ const skillCategories = [
     skills: [
       "Spring framework"
     ]
-  }
+  },
+  {
+    title: "Frontend",
+    icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "Javascript/Typescript",
+      "React"
+    ]
+  },
 ];
 
 // Project data
@@ -278,9 +286,12 @@ const projects = [
     tech: ["GitLab CI", "GitLab Container Registry", "FluxCD", "Kubernetes", "Docker", "Git", "GitOps"],
     longDescription: longDescriptionProject[4],
     images: [
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1516116412344-4d8cbf3ad538?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80"
+      "pipeline_CICD/gitlab-ci.png",
+      "pipeline_CICD/jobs gitlabci.png",
+      "pipeline_CICD/deploy app frontend.png",
+      "pipeline_CICD/list pod frontend.png",
+      "pipeline_CICD/service frontend consul.png",
+      "pipeline_CICD/app login.png"
     ]
   }
 ];
@@ -335,7 +346,7 @@ function FullscreenImage({ src, onClose }) {
         onClick={onClose}
         className="absolute top-4 right-4 text-white hover:text-gray-300"
       >
-        <X className="w-8 h-8" />
+        <X className="w-6 h-6" />
       </button>
       <img
         src={src}
@@ -432,7 +443,7 @@ function ProjectModal({ project, onClose }) {
           <div className="md:w-1/2 p-6">
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              className="absolute right-4 top-4 text-white hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             >
               <X className="w-6 h-6" />
             </button>
@@ -487,6 +498,14 @@ const getIcon = (type: string) => {
   }
 };
 
+const menuItems = [
+  { href: "#about", label: "Accueil" },
+  { href: "#projects", label: "Projets" },
+  { href: "#skills", label: "Compétences" },
+  { href: "#education", label: "Éducation" },
+  { href: "#contact", label: "Contact" },
+]
+
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -497,6 +516,8 @@ function App() {
     }
     return false;
   });
+  const [activeSection, setActiveSection] = useState("#about")
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -602,11 +623,19 @@ function App() {
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">Michel Patrick</div>
               <div className="flex items-center space-x-8">
-                <a href="#about" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Accueil</a>
-                <a href="#projects" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Projets</a>
-                <a href="#skills" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Compétences</a>
-                <a href="#education" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Éducation</a>
-                <a href="#contact" className="hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400">Contact</a>
+                {menuItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setActiveSection(item.href)}
+                  className={`hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 ${
+                    activeSection === item.href ? "text-blue-600 font-semibold dark:text-blue-600" : ""
+                  }`}
+                >
+                  {item.label}
+                </a>
+              ))}
+                
                 <button
                   onClick={toggleDarkMode}
                   className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -614,7 +643,41 @@ function App() {
                   {darkMode ? <Sun className="w-5 h-5 text-yellow-500" /> : <Moon className="w-5 h-5" />}
                 </button>
               </div>
+              {/* Mobile Menu Button */}
+              <div className="md:hidden flex items-center">
+                <button
+                  onClick={toggleDarkMode}
+                  className="p-2 mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  {darkMode ? <Sun className="w-5 h-5 text-yellow-500" /> : <Moon className="w-5 h-5" />}
+                </button>
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  {isMenuOpen ? (
+                    <X className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+                  ) : (
+                    <Menu className="w-6 h-6 text-yellow-500 dark:text-gray-700" />
+                  )}
+                </button>
+              </div>
             </div>
+            {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-4 pb-4">
+            {menuItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="block py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </div>
+        )}
           </nav>
         </header>
 
@@ -895,9 +958,47 @@ function App() {
 
         {/* Contact Section */}
         <section id="contact" className="py-20 px-6 bg-white dark:bg-gray-900">
-          <div className="container mx-auto max-w-2xl">
+          <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Contact</h2>
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-2 gap-12">
+             <div>
+                  <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+                  Parlons de votre projet
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-8">
+                  Vous avez un projet DevOps ? Je serais ravi d'en discuter et de voir
+                  comment je peux vous aider à atteindre vos objectifs.
+                </p>
+
+                <div className="space-y-4">
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  >
+                    <Linkedin className="w-6 h-6 mr-3" />
+                    LinkedIn
+                  </a>
+                  <a
+                    href="https://github.com/michelpatrick246"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  >
+                    <Github className="w-6 h-6 mr-3" />
+                    GitHub
+                  </a>
+                  <a
+                    href="mailto:michelpatrick246@gmail.com"
+                    className="flex items-center text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  >
+                    <Mail className="w-6 h-6 mr-3" />
+                    michelpatrick246@gmail.com
+                  </a>
+                </div>
+              </div>
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="from_name" className="block text-gray-700 dark:text-gray-300 mb-2">Nom <span style={{"color": "tomato"}}>*</span></label>
                 <input
@@ -938,6 +1039,9 @@ function App() {
                 {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
               </button>
             </form>
+            <div>
+          </div>
+        </div>
           </div>
         </section>
 
