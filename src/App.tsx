@@ -443,7 +443,7 @@ function ProjectModal({ project, onClose }) {
           <div className="md:w-1/2 p-6">
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 text-white hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              className="absolute right-4 top-4 text-white hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-200"
             >
               <X className="w-6 h-6" />
             </button>
@@ -622,14 +622,14 @@ function App() {
           <nav className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">Michel Patrick</div>
-              <div className="flex items-center space-x-8">
+              <div className="hidden md:flex items-center space-x-8">
                 {menuItems.map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setActiveSection(item.href)}
                   className={`hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 ${
-                    activeSection === item.href ? "text-blue-600 font-semibold dark:text-blue-600" : ""
+                    activeSection === item.href ? "text-blue-600 font-semibold dark:text-blue-400" : ""
                   }`}
                 >
                   {item.label}
@@ -658,7 +658,7 @@ function App() {
                   {isMenuOpen ? (
                     <X className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                   ) : (
-                    <Menu className="w-6 h-6 text-yellow-500 dark:text-gray-700" />
+                    <Menu className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                   )}
                 </button>
               </div>
@@ -960,9 +960,9 @@ function App() {
         <section id="contact" className="py-20 px-6 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">Contact</h2>
-            <div className="grid grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-12">
              <div>
-                  <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">
                   Parlons de votre projet
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-8">
