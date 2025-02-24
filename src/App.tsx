@@ -613,7 +613,7 @@ function App() {
 
 
   return (
-    <div className={darkMode ? 'dark' : ''}>
+    <div>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Toaster position="top-right" />
         
@@ -629,7 +629,7 @@ function App() {
                   href={item.href}
                   onClick={() => setActiveSection(item.href)}
                   className={`hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 ${
-                    activeSection === item.href ? "text-blue-600 font-semibold dark:text-blue-400" : ""
+                    activeSection === item.href ? "text-blue-600 font-semibold dark:text-white" : ""
                   }`}
                 >
                   {item.label}
@@ -689,7 +689,7 @@ function App() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.5 }}  
-                className="md:w-1/2"
+                className="md:w-3/5 text-center md:text-left"
                 >
                 <div className="inline-block mt-4">
                   <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">
@@ -697,7 +697,7 @@ function App() {
                   </span>
                 </div>
 
-                <h1 className="text-5xl md:text-6xl font-display font-bold leading-tight">
+                <h1 className="text-3xl md:text-6xl font-display dark:text-white font-bold leading-tight">
                   Je suis <br />
                   TOVONJANAHARY Michel Patrick
                 </h1>
@@ -717,7 +717,7 @@ function App() {
                   Ayant une bonne maîtrise des outils d'automatisation et une expérience pratique dans le déploiement d'applications sur le cloud, 
                   je suis motivé à renforcer mes compétences et à contribuer à des projets innovants.
                 </p> */}
-                <div className="flex space-x-4">
+                <div className="flex justify-center md:justify-start space-x-4">
                   <a
                     href="https://github.com/michelpatrick246"
                     target="_blank"
@@ -802,14 +802,14 @@ function App() {
             <h2 className="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white">
               Compétences
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               {skillCategories.map((category, index) => (
                 <motion.div
                   key={category.title}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className=" bg-gray-50 dark:bg-gray-800 rounded-lg opacity-0 p-6"
+                  className="bg-gray-50 dark:bg-gray-800 rounded-lg opacity-0 p-6"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     {category.icon}
@@ -821,7 +821,7 @@ function App() {
                     {category.skills.map((skill) => (
                       <li 
                         key={skill}
-                        className="text-gray-600 dark:text-gray-300"
+                        className="text-gray-600 dark:text-gray-300 flex items-center gap-2"
                       >
                         <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                         {skill}
@@ -843,25 +843,25 @@ function App() {
                 Formation & Expérience
               </h2>
             </div>
-            <div className='grid grid-cols-2 gap-8'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 
              {/* Formation & Certifications */}
               <div className="relative">
                 {/* Timeline line */}
-                <div className="absolute left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
+                <div className="absolute left-8 md:left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
 
                 <div className="space-y-12">
                   {education.map((item, index) => (
                     <div
                       key={index}
                       ref={(el) => (itemRefs.current[index] = el)}
-                      className="relative pl-20 opacity-0 translate-x-8 transition-all duration-700"
+                      className="relative pl-12 md:pl-20 opacity-0 translate-x-8 transition-all duration-700"
                       style={{ animationDelay: `${index * 200}ms` }}
                     >
                       {/* Timeline dot and icon */}
                       <div className="absolute left-6 transform -translate-x-1/2 flex items-center justify-center">
                         <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full" />
-                        <div className="absolute -left-8 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
+                        <div className="absolute -left-6 md:-left-8 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
                           {getIcon(item.type)}
                         </div>
                       </div>
@@ -869,7 +869,7 @@ function App() {
                       {/* Content */}
                       <div className="relative">
                         <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+                          <h3 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
                             {item.title}
                           </h3>
                         </div>
@@ -897,27 +897,27 @@ function App() {
               {/* Expérience Professionnelle */}
               <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
+              <div className="absolute left-6 md:left-8 top-0 h-full w-0.5 bg-blue-200 dark:bg-blue-900" />
 
               <div className="space-y-12">
                 {experienceData.map((item, index) => (
                   <div
                     key={index}
                     ref={(el) => (experienceRefs.current[index] = el)}
-                    className="relative pl-20 opacity-0 translate-x-8 transition-all duration-700"
+                    className="relative pl-12 md:pl-20 opacity-0 translate-x-8 transition-all duration-700"
                     style={{ animationDelay: `${index * 500}ms` }}
                   >
                     {/* Timeline dot and icon */}
                     <div className="absolute left-6 transform -translate-x-1/2 flex items-center justify-center">
                       <div className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full" />
-                      <div className="absolute -left-8 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
+                      <div className="absolute -left-6 md:-left-8 w-12 h-12 flex items-center justify-center bg-blue-100 dark:bg-blue-900 rounded-full">
                         <Users className="w-6 h-6" />
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="relative">
-                      <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+                      <h3 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white mb-2">
                         {item.title}
                       </h3>
 
