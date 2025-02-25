@@ -5,7 +5,7 @@ import {
   Clock, Calendar, Building2, Server, Gitlab, Users,
   Shield, BarChart,
   Database, Mail,
-  Play, Menu
+  Play, Menu, Code
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import toast, { Toaster } from 'react-hot-toast';
@@ -122,8 +122,8 @@ const longDescriptionProject = [
       {
         title: "Backend",
         text: `Développement d'une API REST avec Spring Boot pour gérer les données de recensement, 
-              Connexion à une base de données MySQL pour stocker les informations, 
-              Gestion des utilisateurs et des permissions avec Spring Security et Envoie notification par sms.`
+              Connexion à une base de données MySQL pour stocker les informations, génération et export fichier,
+              Gestion des utilisateurs et des permissions avec Spring Security et Envoie notification push et par sms.`
       },
       {
         title: "Frontend",
@@ -160,32 +160,108 @@ const longDescriptionProject = [
   }
 ]
 
+// const skillCategoriesDevops = [
+//   {
+//     title: "Infrastructure & Cloud",
+//     icon: <Cloud className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+//     skills: [
+//       "Kubernetes",
+//       "Docker",
+//       "Terraform, Ansible",
+//       "OpenStack"
+//     ]
+//   },
+//   {
+//     title: "CI/CD & Automatisation",
+//     icon: <Gitlab className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+//     skills: [
+//       "GitLab CI/CD",
+//       "FluxCD",
+//     ]
+//   },
+//   {
+//     title: "Sécurité & Réseau",
+//     icon: <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+//     skills: [
+//       "OpenVPN",
+//       "TLS (Certificats Let's Encrypt avec Traefik)",
+//       "Gestion des permissions Kubernetes (RBAC, NetworkPolicy)"
+//     ]
+//   },
+//   {
+//     title: "Monitoring & Logs",
+//     icon: <BarChart className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+//     skills: [
+//       "Grafana",
+//       "Victoria metrics",
+//       "Loki",
+//     ]
+//   },
+//   {
+//     title: "Backend",
+//     icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+//     skills: [
+//       "Spring framework"
+//     ]
+//   },
+//   {
+//     title: "Frontend",
+//     icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+//     skills: [
+//       "Javascript/Typescript",
+//       "React"
+//     ]
+//   },
+// ];
+
+
+// Project data
 const skillCategories = [
   {
-    title: "Infrastructure & Cloud",
-    icon: <Cloud className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    title: "Développement Backend",
+    icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
     skills: [
-      "Kubernetes",
-      "Docker",
-      "Terraform, Ansible",
-      "OpenStack, linode vps"
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "Hibernate/JPA",
+      "Spring websocket",
+      "API REST",
+      "Microservices",
+    ]
+  },
+  {
+    title: "Base de Données",
+    icon: <Server className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "MySQL",
+      "PostgreSQL",
     ]
   },
   {
     title: "CI/CD & Automatisation",
     icon: <Gitlab className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
     skills: [
-      "GitLab CI/CD (déploiements automatisés)",
-      "FluxCD (GitOps)",
+      "GitLab CI/CD",
+      "Docker"
+    ]
+  },
+  {
+    title: "Infrastructure & Cloud",
+    icon: <Cloud className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "Kubernetes",
+      "OpenStack"
     ]
   },
   {
     title: "Sécurité & Réseau",
     icon: <Shield className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
     skills: [
-      "OpenVPN",
-      "TLS (Certificats Let's Encrypt avec Traefik)",
-      "Gestion des permissions Kubernetes (RBAC, NetworkPolicy)"
+      "Spring Security (OAuth2, JWT)",
+      "RBAC, NetworkPolicy",
+      "TLS (Let's Encrypt, Traefik)",
+      "OpenVPN"
     ]
   },
   {
@@ -193,43 +269,35 @@ const skillCategories = [
     icon: <BarChart className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
     skills: [
       "Grafana",
-      "Victoria metrics",
-      "Loki",
+      "Victoria Metrics",
+      "Loki"
     ]
   },
   {
-    title: "Backend",
-    icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    title: "Développement Frontend",
+    icon: <Code className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
     skills: [
-      "Spring framework"
-    ]
-  },
-  {
-    title: "Frontend",
-    icon: <Database className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
-    skills: [
-      "Javascript/Typescript",
+      "JavaScript / TypeScript",
       "React"
     ]
-  },
+  }
 ];
 
-// Project data
 const projects = [
-  {
-    id: 1,
-    title: "Infrastructure DevOps complète : Automatisation, surveillance et sauvegarde pour une petite entreprise",
-    description: "Déploiement d'une infrastructure DevOps auto-hébergée et automatisée sur linode, incluant des services comme Nextcloud, Zulip, Pi-hole et une surveillance avec Checkmk. Réalisé avec Ansible, Docker, Traefik et GitLab CI/CD.",
-    icon: <Cloud className="w-8 h-8" />,
-    tech: ["Linode", "Ansible", "Docker", "Traefik", "GitLab CI/CD", "WireGuard", "Borg", "Checkmk", "Nextcloud", "Zulip", "Pi-hole", "iRedMail", "Mysql"],
-    longDescription: longDescriptionProject[0],
-    images: [
-      "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1667372393749-0af6ae3d5aee?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1667372394195-f5e8f2aa3fae?auto=format&fit=crop&w=1200&q=80"
-    ],
-     demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
-  },
+  // {
+  //   id: 1,
+  //   title: "Infrastructure DevOps complète : Automatisation, surveillance et sauvegarde pour une petite entreprise",
+  //   description: "Déploiement d'une infrastructure DevOps auto-hébergée et automatisée sur linode, incluant des services comme Nextcloud, Zulip, Pi-hole et une surveillance avec Checkmk. Réalisé avec Ansible, Docker, Traefik et GitLab CI/CD.",
+  //   icon: <Cloud className="w-8 h-8" />,
+  //   tech: ["Linode", "Ansible", "Docker", "Traefik", "GitLab CI/CD", "WireGuard", "Borg", "Checkmk", "Nextcloud", "Zulip", "Pi-hole", "iRedMail", "Mysql"],
+  //   longDescription: longDescriptionProject[0],
+  //   images: [
+  //     "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?auto=format&fit=crop&w=1200&q=80",
+  //     "https://images.unsplash.com/photo-1667372393749-0af6ae3d5aee?auto=format&fit=crop&w=1200&q=80",
+  //     "https://images.unsplash.com/photo-1667372394195-f5e8f2aa3fae?auto=format&fit=crop&w=1200&q=80"
+  //   ],
+  //    demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
+  // },
   {
     id: 2,
     title: "API REST de gestion bancaire avec architecture microservices et Spring Boot",
@@ -238,11 +306,46 @@ const projects = [
     tech: ["Spring Boot", "Spring Cloud", "Spring Cloud Gateway", "Spring Cloud Config", "Eureka", "h2","Git", "Maven"],
     longDescription: longDescriptionProject[1],
     images: [
-      "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1618401471578-39cd9c0e41c5?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1618401471668-9e86f7e8a85a?auto=format&fit=crop&w=1200&q=80"
+      "microservices/diagramme microservice.png",
+      "microservices/eureka dashboard.png",
+      "microservices/capture rest client.png",
+      "microservices/GET accounts.png",
+      "microservices/config account service.png",
+      "microservices/GET customers.png"
     ],
      demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
+  },
+  {
+    id: 4,
+    title: "Application web de gestion de recensement",
+    description: "Développement d'une application web full-stack pour la gestion de recensement, utilisant Spring Boot pour le backend et React pour le frontend, dans le cadre d'un stage en entreprise.",
+    icon: <Server className="w-8 h-8" />,
+    tech: ["Spring Boot", "Spring Security", "OAuth2","Spring websocket","React", "MySQL", "Git", "2TUP"],
+    longDescription: longDescriptionProject[3],
+    images: [
+      "gestion-recensement/Diagramme de cas d'utilisation1.jpg",
+      "gestion-recensement/génération attestation congé.png",
+      "gestion-recensement/liste demande congé.png",
+      "gestion-recensement/demande congé.png",
+      "gestion-recensement/liste demande de congé.png",
+      "gestion-recensement/attestation congé.png"
+    ]
+  },
+  {
+    id: 5,
+    title: "Pipeline CI/CD avec GitLab CI et déploiement automatisé sur Kubernetes avec FluxCD",
+    description: "Création d'un pipeline CI/CD avec GitLab CI pour tester et builder l'application gestion de recensement, et automatisation du déploiement sur un cluster Kubernetes avec FluxCD.",
+    icon: <GitBranch className="w-8 h-8" />,
+    tech: ["GitLab CI", "GitLab Container Registry", "FluxCD", "Kubernetes", "Docker", "Git", "GitOps"],
+    longDescription: longDescriptionProject[4],
+    images: [
+      "pipeline_CICD/gitlab-ci.png",
+      "pipeline_CICD/jobs gitlabci.png",
+      "pipeline_CICD/deploy app frontend.png",
+      "pipeline_CICD/list pod frontend.png",
+      "pipeline_CICD/service frontend consul.png",
+      "pipeline_CICD/app login.png"
+    ]
   },
   {
     id: 3,
@@ -264,35 +367,6 @@ const projects = [
       "infra_cloud/config alert node_exporter.png"
     ],
      demoGif: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzY3ODY5MjRiNjY5ZmQ5ZjBiZjBkZjM5ZjI5ZjM5ZjQ5ZjM5ZjM5ZiZjdD1n/3oKIPnAiaMCws8nOsE/giphy.gif"
-  },
-  {
-    id: 4,
-    title: "Application web de gestion de recensement",
-    description: "Développement d'une application web full-stack pour la gestion de recensement, utilisant Spring Boot pour le backend et React pour le frontend, dans le cadre d'un stage en entreprise.",
-    icon: <Server className="w-8 h-8" />,
-    tech: ["Spring Boot", "Spring Security", "React", "MySQL", "Git", "2TUP"],
-    longDescription: longDescriptionProject[3],
-    images: [
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1516116412344-4d8cbf3ad538?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&w=1200&q=80"
-    ]
-  },
-  {
-    id: 5,
-    title: "Pipeline CI/CD avec GitLab CI et déploiement automatisé sur Kubernetes avec FluxCD",
-    description: "Création d'un pipeline CI/CD avec GitLab CI pour tester et builder l'application gestion de recensement, et automatisation du déploiement sur un cluster Kubernetes avec FluxCD.",
-    icon: <GitBranch className="w-8 h-8" />,
-    tech: ["GitLab CI", "GitLab Container Registry", "FluxCD", "Kubernetes", "Docker", "Git", "GitOps"],
-    longDescription: longDescriptionProject[4],
-    images: [
-      "pipeline_CICD/gitlab-ci.png",
-      "pipeline_CICD/jobs gitlabci.png",
-      "pipeline_CICD/deploy app frontend.png",
-      "pipeline_CICD/list pod frontend.png",
-      "pipeline_CICD/service frontend consul.png",
-      "pipeline_CICD/app login.png"
-    ]
   }
 ];
 
@@ -422,7 +496,7 @@ function ProjectModal({ project, onClose }) {
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
                         className={`w-2 h-2 rounded-full ${
-                          index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                          index === currentImageIndex ? 'bg-white' : 'bg-gray-300 dark:bg-white/50'
                         }`}
                       />
                     ))}
@@ -432,6 +506,7 @@ function ProjectModal({ project, onClose }) {
               
               <button
                 onClick={() => setShowDemo(!showDemo)}
+                disabled={true}
                 className="absolute bottom-10 right-10 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full flex items-center gap-2 transition-colors duration-300"
               >
                 <Play className="w-4 h-4" />
@@ -693,7 +768,7 @@ function App() {
                 >
                 <div className="inline-block mt-4">
                   <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">
-                  🚀 DevOps Engineer
+                  🚀 Développeur Backend Java
                   </span>
                 </div>
 
@@ -701,8 +776,11 @@ function App() {
                   Je suis <br />
                   TOVONJANAHARY Michel Patrick
                 </h1>
-                <p className="text-gray-600 dark:text-gray-400 max-w-xl mt-4 mb-6 leading-relaxed">
+                {/* <p className="text-gray-600 dark:text-gray-400 max-w-xl mt-4 mb-6 leading-relaxed">
                   Passionné par la construction d’infrastructures et le déploiement d’applications, j’ai commencé par le développement web avant de découvrir la philosophie DevOps. Depuis, je me forme activement à l'automatisation et à l’optimisation des déploiements. Je suis à la recherche d’une opportunité pour mettre en pratique mes compétences et continuer à apprendre au sein d’une équipe dynamique.
+                </p> */}
+                <p className='text-gray-600 dark:text-gray-400 max-w-xl mt-4 mb-6 leading-relaxed'>
+                  passionné par la conception d’API robustes et sécurisées, je m’intéresse particulièrement aux architectures modernes et aux bonnes pratiques de développement. Curieux et motivé, je cherche à évoluer dans un environnement technique stimulant où je pourrai approfondir mes connaissances et contribuer activement à des projets innovants
                 </p>
                 
                 {/* <h2
@@ -966,7 +1044,7 @@ function App() {
                   Parlons de votre projet
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-8">
-                  Vous avez un projet DevOps ? Je serais ravi d'en discuter et de voir
+                  Vous avez un projet Java ? Je serais ravi d'en discuter et de voir
                   comment je peux vous aider à atteindre vos objectifs.
                 </p>
 
