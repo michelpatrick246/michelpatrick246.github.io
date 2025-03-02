@@ -339,6 +339,7 @@ const projects = [
     tech: ["GitLab CI", "GitLab Container Registry", "FluxCD", "Kubernetes", "Docker", "Git", "GitOps"],
     longDescription: longDescriptionProject[4],
     images: [
+      "pipeline_CICD/dockerfile.png",
       "pipeline_CICD/gitlab-ci.png",
       "pipeline_CICD/jobs gitlabci.png",
       "pipeline_CICD/deploy app frontend.png",
@@ -768,7 +769,7 @@ function App() {
                 >
                 <div className="inline-block mt-4">
                   <span className="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">
-                  🚀 Développeur Backend Java
+                  🚀 Développeur Java/Spring Boot Fullstack
                   </span>
                 </div>
 
@@ -780,7 +781,9 @@ function App() {
                   Passionné par la construction d’infrastructures et le déploiement d’applications, j’ai commencé par le développement web avant de découvrir la philosophie DevOps. Depuis, je me forme activement à l'automatisation et à l’optimisation des déploiements. Je suis à la recherche d’une opportunité pour mettre en pratique mes compétences et continuer à apprendre au sein d’une équipe dynamique.
                 </p> */}
                 <p className='text-gray-600 dark:text-gray-400 max-w-xl mt-4 mb-6 leading-relaxed'>
-                  passionné par la conception d’API robustes et sécurisées, je m’intéresse particulièrement aux architectures modernes et aux bonnes pratiques de développement. Curieux et motivé, je cherche à évoluer dans un environnement technique stimulant où je pourrai approfondir mes connaissances et contribuer activement à des projets innovants
+                  Développeur Java/Spring Boot Fullstack, maîtrisant le développement d'applications web complètes, 
+                  de la conception de l'architecture back-end à la création d'interfaces utilisateur intuitives, 
+                  jusqu'au déploiement de l'application. Désireux d'approfondir mes compétences et de contribuer à des projets innovants.
                 </p>
                 
                 {/* <h2
@@ -828,7 +831,7 @@ function App() {
                   className="relative w-72 h-72 mx-auto"
                 >
                   <motion.img
-                    src="profil.jpg"
+                    src="profile2.jpeg"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
                     animate={{ scale: [1, 1.1, 1] }}
