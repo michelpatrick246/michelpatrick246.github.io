@@ -133,28 +133,43 @@ const longDescriptionProject = [
   },
   {
     id: 5,
-    description: `Ce projet consistait à mettre en place un pipeline CI/CD complet pour 
-                  l'application gestion de recensement, en utilisant GitLab CI pour les étapes 
-                  de test et de build, et FluxCD pour automatiser le déploiement sur un cluster Kubernetes.
-                  Fonctionnalités clés: 
+    description: `Ce projet consistait à mettre en place une pipeline CI/CD avec GitLab CI pour automatiser 
+                  le développement, les tests, la qualité du code et le déploiement 
+                  d'une application de gestion de compte bancaire sur un cluster Kubernetes hébergé sur Infomaniak 
+                  Cloud. Fonctionnalités clés: 
                   `,
     details: [
       {
-        title: "Pipeline CI/CD",
-        text: `Configuration d'un pipeline GitLab CI pour exécuter des tests unitaires, 
-              construire des images Docker et les pousser vers le registre privé GitLab 
-              Container Registry.
+        title: "Automatisation du Build",
+        text: `Mise en place d'une pipeline pour compiler(maven) et construire automatiquement 
+              l'application à chaque commit ou merge request dans le dépôt GitLab.
               `
       },
       {
-        title: "Déploiement automatisé",
-        text: ` Utilisation de FluxCD pour synchroniser les déploiements avec le cluster Kubernetes et
-                gestion des manifestes Kubernetes via Git (GitOps).
+        title: "Tests Automatisés",
+        text: ` Intégration de tests unitaires et d'intégration dans la pipeline 
+                pour valider le bon fonctionnement de l'application
               `
       },
       {
-        title: "Intégration avec l'infrastructure existante",
-        text: "Déploiement sur le cluster Kubernetes mentionné dans mon projet précédent."
+        title: "Qualité du Code",
+        text: `Intégration d'outils d'analyse statique du code 
+              (Code climate) pour détecter les vulnérabilités, 
+              les bugs et les violations des bonnes pratiques de développement.`
+      },
+      {
+        title: "Packaging et Gestion des Artéfacts",
+        text: `Création automatique d'images Docker pour chaque version de l'application.
+                Stockage des images dans un registre privé "GitLab Container Registry" pour une gestion centralisée et sécurisée des artéfact
+                `
+      },
+      {
+        title: "Déploiement automatisé sur Kubernetes",
+        text: `Configuration de la pipeline pour déployer automatiquement l'application sur un cluster Kubernetes hébergé sur Infomaniak Cloud.`
+      },
+      {
+        title: 'Sécurité et Conformité',
+        text: `Intégration de cert-manager pour gérer automatiquement les certificats TLS et sécuriser les communications entre les services.`
       }
     ]
   }
@@ -260,8 +275,7 @@ const skillCategories = [
     skills: [
       "Spring Security (OAuth2, JWT)",
       "RBAC, NetworkPolicy",
-      "TLS (Let's Encrypt, Traefik)",
-      "OpenVPN"
+      "TLS (Let's Encrypt, cert-manager)",
     ]
   },
   {
@@ -333,19 +347,23 @@ const projects = [
   },
   {
     id: 5,
-    title: "Pipeline CI/CD avec GitLab CI et déploiement automatisé sur Kubernetes avec FluxCD",
-    description: "Création d'un pipeline CI/CD avec GitLab CI pour tester et builder l'application gestion de recensement, et automatisation du déploiement sur un cluster Kubernetes avec FluxCD.",
+    title: "Pipeline CI/CD avec GitLab CI et déploiement automatisé sur Kubernetes",
+    description: "Création d'un pipeline CI/CD avec GitLab CI pour automatiser les tests, le build, la qualité du code et le packaging d'une application de gestion de compte bancaire basée sur une architecture microservices, suivie d'un déploiement sur un cluster Kubernetes.",
     icon: <GitBranch className="w-8 h-8" />,
-    tech: ["GitLab CI", "GitLab Container Registry", "FluxCD", "Kubernetes", "Docker", "Git", "GitOps"],
+    tech: ["GitLab CI", "maven", "Kubernetes", "Docker", "Git", "cert-manager", "infomaniak cloud"],
     longDescription: longDescriptionProject[4],
     images: [
-      "pipeline_CICD/dockerfile.png",
-      "pipeline_CICD/gitlab-ci.png",
-      "pipeline_CICD/jobs gitlabci.png",
-      "pipeline_CICD/deploy app frontend.png",
-      "pipeline_CICD/list pod frontend.png",
-      "pipeline_CICD/service frontend consul.png",
-      "pipeline_CICD/app login.png"
+      "pipeline/dockerfile_ci.png",
+      "pipeline/gitlabci_build.png",
+      "pipeline/gitlabci_code_quality.png",
+      "pipeline/list_pipeline.png",
+      "pipeline/jobs gitlabci.png",
+      "pipeline/code_climate.png",
+      "pipeline/registry.png",
+      "pipeline/pom.png",
+      "pipeline/ingress.png",
+      "pipeline/list_pods.png",
+      "pipeline/eureka.png"
     ]
   },
   {
