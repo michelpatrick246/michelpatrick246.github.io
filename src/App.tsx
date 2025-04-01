@@ -120,14 +120,21 @@ const longDescriptionProject = [
                 `,
     details: [
       {
+        title: "Conception",
+        text: `Conception du système en utilisant la méthode 2TUP`
+      },
+      {
         title: "Backend",
-        text: `Développement d'une API REST avec Spring Boot pour gérer les données de recensement, 
-              Connexion à une base de données MySQL pour stocker les informations, génération et export fichier,
-              Gestion des utilisateurs et des permissions avec Spring Security et Envoie notification push et par sms.`
+        text: `Création d'une API REST en Spring Boot pour gérer les congés, permissions, utilisateurs et les rôles.
+                Implémentation des notifications par SMS et push en utilisant Spring WebSocket. Génération fichier pdf et import fichier excel pour l'enregistrer dans le base de donnée.
+                Sécurisation de l'authentification avec Spring Security, OAuth, JWT et chiffrement des tokens JWT avec OpenSSL.
+              `
       },
       {
         title: "Frontend",
-        text: "Interface utilisateur intuitive développée avec React."
+        text: `Création d'un dashboard en React avec un espace dédié pour chaque rôle utilisateur.
+                Affichage en temps réel des notifications et des demandes de congés, permissions.
+              `
       }
     ]
   },
@@ -246,6 +253,14 @@ const skillCategories = [
     ]
   },
   {
+    title: "Développement Frontend",
+    icon: <Code className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    skills: [
+      "JavaScript / TypeScript",
+      "React"
+    ]
+  },
+  {
     title: "Base de Données",
     icon: <Server className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
     skills: [
@@ -285,14 +300,6 @@ const skillCategories = [
       "Grafana",
       "Victoria Metrics",
       "Loki"
-    ]
-  },
-  {
-    title: "Développement Frontend",
-    icon: <Code className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
-    skills: [
-      "JavaScript / TypeScript",
-      "React"
     ]
   }
 ];
@@ -415,7 +422,14 @@ const experienceData: Experience[] = [
     company: 'Ministère de la Jeunesse et Sport, Madagascar',
     period: 'Août 2023 - Novembre 2023',
     description: "Développement d'une application web full-stack pour la gestion de recensement, utilisant Spring Boot pour le backend et React pour le frontend, dans le cadre d'un stage en entreprise.",
-    technologies: ['Spring boot', 'Spring security', 'React', 'Mysql', "Git", "2TUP"],
+    technologies: ['Java', 'Spring boot', 'Spring security','Spring data','React', 'Mysql', "Git", "2TUP"],
+  },
+  {
+    title: "Conception et réalisation d'une application de gestion des congés (stage)",
+    company: "Ministère de l'Economie et des Finances, Madagascar",
+    period: 'Septembre 2022 - Novembre 2022',
+    description: "Développement d'une application web pour la gestion des congés, utilisant le framework symfony et le SGBD mysql, dans le cadre d'un stage en entreprise",
+    technologies: ['PHP', "Symfony", "Git", "Mysql"]
   }
 ];
 
@@ -849,7 +863,7 @@ function App() {
                   className="relative w-72 h-72 mx-auto"
                 >
                   <motion.img
-                    src="profile2.jpeg"
+                    // src="profile2.jpeg"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
                     animate={{ scale: [1, 1.1, 1] }}
