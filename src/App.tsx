@@ -864,7 +864,7 @@ function App() {
                 >
                   <motion.img
                     // src="profile2.jpeg"
-                    alt="Profile"
+                    //alt="Profile"
                     className="w-full h-full object-cover rounded-full border-4 border-blue-500 shadow-lg"
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
