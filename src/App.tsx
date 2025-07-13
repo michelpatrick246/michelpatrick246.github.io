@@ -1,15 +1,32 @@
-import { useState, useEffect, useRef } from 'react';
-import { 
-  Github, Linkedin, Moon, Sun, Cloud, GitBranch, 
-  ChevronLeft, ChevronRight, X, GraduationCap, Award, 
-  Clock, Calendar, Building2, Server, Gitlab, Users,
-  Shield, BarChart,
-  Database, Mail,
-  Play, Menu, Code
-} from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import toast, { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
+import {
+  Award,
+  BarChart,
+  Building2,
+  Calendar,
+  ChevronLeft, ChevronRight,
+  Clock,
+  Cloud,
+  Code,
+  Database,
+  GitBranch,
+  Github,
+  Gitlab,
+  GraduationCap,
+  Linkedin,
+  Mail,
+  Menu,
+  Moon,
+  Play,
+  Server,
+  Shield,
+  Sun,
+  Users,
+  X
+} from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 interface Experience {
